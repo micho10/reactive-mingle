@@ -24,15 +24,16 @@ server.pid
 /RUNNING_PID
 
 # Ignore Scala #
-*.class
-*.log
+**/*.class
+**/*.cache
+**/*.log
 
 # sbt specific
 dist/*
-lib_managed/
-src_managed/
-project/boot/
-project/plugins/project/
+lib_managed/*
+src_managed/*
+project/boot/*
+project/plugins/project/*
 
 # Scala-IDE specific
 .scala_dependencies

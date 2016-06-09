@@ -1,4 +1,4 @@
-name := """play-scala-intro"""
+name := """reactive-mingle"""
 
 version := "1.0-SNAPSHOT"
 
