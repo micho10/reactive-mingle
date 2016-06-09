@@ -1,0 +1,5 @@
+# Default.
+# Matches all languages.
+
+name = Name
+age = Age
