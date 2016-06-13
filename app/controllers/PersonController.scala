@@ -12,8 +12,18 @@ import play.api.mvc._
 
 import scala.concurrent.{ExecutionContext, Future}
 
+/**
+  * A controller is an object that generates Action values.
+  * They should be defined as classes (taking advantage of DI).
+  *
+  * The Inject tag indicates it's using an injected routes generator.
+  *
+  * @param repo
+  * @param messagesApi
+  * @param ec
+  */
 class PersonController @Inject() (repo: PersonRepository, val messagesApi: MessagesApi)
-                                 (implicit ec: ExecutionContext) extends Controller with I18nSupport{
+                                 (implicit ec: ExecutionContext) extends Controller with I18nSupport {
 
   /**
    * The mapping for the person form.
@@ -26,6 +36,13 @@ class PersonController @Inject() (repo: PersonRepository, val messagesApi: Messa
   }
 
   /**
+    *
+    * param name person's name
+    * return     standard ‘Not implemented yet’ result page
+    */
+//  def index(name:String) = TODO
+
+  /**
    * The index action.
    */
   def index = Action {
@@ -36,9 +53,12 @@ class PersonController @Inject() (repo: PersonRepository, val messagesApi: Messa
    * The add person action.
    *
    * This is asynchronous, since we're invoking the asynchronous methods on PersonRepository.
+   *
+   * - Marking the request parameter as "implicit" makes other APIs that need it being able to use it implicitly.
+   * - Because no body parser was specified, it's using an "Any content body parser"
    */
   def addPerson = Action.async { implicit request =>
-    // Bind the form first, then fold the result, passing a function to handle errors, and a function to handle succes.
+    // Bind the form first, then fold the result, passing a function to handle errors, and a function to handle success.
     personForm.bindFromRequest.fold(
       // The error function. We return the index page with the error form, which will render the errors.
       // We also wrap the result in a successful future, since this action is synchronous, but we're required to return
@@ -70,7 +90,7 @@ class PersonController @Inject() (repo: PersonRepository, val messagesApi: Messa
  * The create person form.
  *
  * Generally for forms, you should define separate objects to your models, since forms very often need to present data
- * in a different way to your models.  In this case, it doesn't make sense to have an id parameter in the form, since
+ * in a different way to your models. In this case, it doesn't make sense to have an id parameter in the form, since
  * that is generated once it's created.
  */
 case class CreatePersonForm(name: String, age: Int)

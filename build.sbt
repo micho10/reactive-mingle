@@ -7,9 +7,9 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 scalaVersion := "2.11.8"
 
 libraryDependencies ++= Seq(
-  "com.typesafe.play" %% "play-slick" % "2.0.2",
-  "com.typesafe.play" %% "play-slick-evolutions" % "2.0.2",
-  "com.h2database" % "h2" % "1.4.192",
+  "com.typesafe.play" %% "play-slick"             % "2.0.0",      // Integrate Slick into Play (needs JDBC driver)
+  "com.typesafe.play" %% "play-slick-evolutions"  % "2.0.0",      // Manage DB evolutions
+  "com.h2database"    % "h2"                      % "1.4.192",    // JDBC driver for in-memory DB
   specs2 % Test
 )
 
